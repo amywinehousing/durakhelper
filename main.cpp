@@ -40,7 +40,7 @@ using namespace std;
 
 int main() {
     int userDeckSize = 0;
-    int lowestValueAllowed = 2;
+    int lowestValueAllowed;
     int howManyPlayers = 0;
     int enteredCount = 0; 
     int stillLeft = 0;
@@ -167,4 +167,5 @@ int main() {
     cin.ignore();
     cin.get();
     return 0;
+
 }
