@@ -1,5 +1,5 @@
 # durakhelper
-a helper for durak write only on c++;
+a helper for durak written only on c++;
 supports 24/36/52 decks;
 the card suits are written romanized from russian;
 piki - spades;
