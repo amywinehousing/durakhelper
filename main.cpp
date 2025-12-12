@@ -1,171 +1,135 @@
-#include <iostream>
-#include <string>
-#include <cctype>
-using namespace std;
-
 /*
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⠲⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣷⡄⠈⢢⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣄⠀⠀⠀⠀⠀⠀⢀⣾⡀⠀⠀⠀⠀⠹⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⡓⠦⢄⣀⠀⠀⡼⠻⠿⢶⡄⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⢀⡤⠤⠤⣤⣤⣴⣶⣶⠶⠶⠶⠒⠒⠂⠙⠀⠀⠀⠉⠉⠓⠲⢤⣀⠀⠀⠀⠀⠀⢹⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠈⢿⠈⠳⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠢⣄⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠈⡇⠀⠀⠀⠀⠀⢀⣿⡋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣟⠁⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠸⡀⠀⠀⠀⠀⢈⡽⠁⠀⠀⠠⡄⠀⠀⠀⠀⠀⠀⠀⣄⠀⠀⠀⠀⠀⠀⠘⡆⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠱⡀⠀⠀⣠⠞⠀⠀⠀⠀⣠⢧⠀⠀⠀⠀⠀⠀⠀⠘⣆⠀⠀⠀⠀⠀⠀⢹⠀⣸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢆⡴⠃⠀⠀⠀⢠⠞⠁⠈⢣⡀⣄⠀⠀⠀⠀⠀⠘⣆⠀⠀⠀⠀⠀⢸⣠⡇⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⢞⣓⣸⠀⢠⠰⣋⣀⣀⣳⢤⡙⢾⣟⠲⢤⣀⣠⠄⢯⠳⡀⠀⠀⠀⠸⠋⡇⠀⠀⠀⠀⠀⠀⢠⠏⠹⡄⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⣿⠀⢸⢰⠋⠀⣸⣿⣿⡆⠀⠈⠃⢤⣯⣿⡶⠾⣄⠘⡦⠀⠀⢀⣦⣿⠀⠀⠀⠀⠀⢠⠃⠀⠀⢳⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡄⢸⣼⣀⡀⠣⠽⠿⢃⠀⠀⠀⢾⣻⣿⡿⠀⣸⡸⠁⠀⢀⡼⡼⠉⠳⣄⠀⠀⣰⠃⠀⠀⠀⢸⠇
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠟⣷⡘⣿⣛⡁⠀⠀⠀⠀⠁⠀⠀⠀⠉⠍⠡⣶⡿⠁⠀⣠⠟⣇⡇⠀⠀⠈⢦⣰⠁⠀⠀⠀⠀⢸⠂
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠖⢻⣣⣈⣿⣤⠤⢒⠒⠦⠖⠢⠴⢄⣀⢬⣷⠞⢁⣠⠞⣡⠞⢹⡟⠀⠀⠀⠀⠃⠀⠀⠀⠀⢀⡞⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢏⣻⡶⠞⠉⠛⢉⣆⣴⡞⠻⠦⣾⢿⣊⣉⡴⣶⠁⠀⠀⠑⢄⡀⢀⢰⠋⢦⠀⠀⣠⠞⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢨⣿⣤⣶⣦⠀⠀⡇⠀⠀⣤⣄⠹⡟⠛⢷⠀⠁⠀⠀⠀⠀⠀⠙⠺⣏⣀⠈⢷⠚⠁⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⢿⣿⣿⣝⢿⡇⠀⣧⢠⣾⣿⣿⣿⡿⡄⢸⡄⠀⠀⠀⠀⠀⠀⠀⢸⠏⠉⠁⠈⡆⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡟⠀⠀⠀⠙⠃⠀⢸⣿⠈⠱⠟⠛⠛⠃⢹⢸⣿⡄⠀⠀⠀⣤⡀⢀⡿⠛⠓⠂⢀⢱⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣸⡀⠀⠀⠀⠀⠀⣠⢟⣸⠦⣄⣀⠀⠀⠀⠘⣸⠹⣟⡆⠀⡼⠁⠙⣾⣷⣦⣄⠀⠀⢸⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠉⠀⠘⡇⠀⣀⣀⡠⠞⣱⠋⠀⠀⠀⠈⠙⢦⡀⠀⢹⡚⠉⠀⢰⠃⠀⠀⠘⣆⠀⠉⠀⠀⢸⡇⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⢀⣜⠁⠀⠀⠀⠀⠙⠉⢹⣿⠁⢰⠃⠀⠀⠀⠀⠀⠀⠀⠑⣦⣬⠇⠀⢀⡏⠀⠀⠀⠀⠉⠀⠀⠀⢀⢸⡇⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⡠⠟⠛⠛⠷⠂⠀⠀⠀⠀⠈⣿⢠⡇⣠⣤⣤⣤⣀⠀⠀⠀⠀⠘⣿⣶⣶⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⡞⢸⠃⠀⠀⠀
-⠀⠀⠀⠀⠀⢀⣾⣷⣤⣤⠀⠀⠀⠀⠀⠀⠀⠀⠛⡼⢉⢉⣉⣉⠛⠻⢷⣄⠀⠀⠀⣸⣯⠙⢿⣧⠀⠀⠀⠀⠀⠀⢀⡼⠁⡼⠀⠀⠀⠀
-⠀⠀⠀⠀⡰⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡤⠀⡗⠛⠛⠻⠿⣷⣦⣀⠀⠀⠀⠀⠘⢻⠀⠀⠙⠃⠀⠀⠀⠀⡠⠊⠀⢠⠃⠀⠀⠀⠀
-⠀⣠⣖⣟⣳⣒⣆⠀⠀⠀⠀⠀⠀⠀⠀⣠⣎⠀⢸⠁⠀⠀⠀⠀⠀⠉⠉⠀⢸⠀⠀⠀⣏⠀⠀⠀⠀⠀⠠⠒⠋⠀⠀⢠⠏⠀⠀⠀⠀⠀
-⠰⣿⣿⣶⠿⠷⣾⠃⠀⠀⠀⠀⢀⡠⠚⠁⠈⠦⡞⠀⠀⠀⠀⠀⠀⠀⠀⢠⠏⠀⠀⡼⠉⠁⠀⠀⠀⠀⠀⠀⠀⣠⠔⠋⠀⠀⠀⠀⠀⠀
-⠀⠹⣦⣓⡒⠋⠉⠀⠀⠀⣀⡴⠋⠀⠀⠀⠀⡼⠁⡀⠀⠀⠀⠀⠀⠀⣠⠏⢀⣠⢾⣁⣀⣀⣀⣀⣠⠤⠒⠚⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠹⣦⣿⣯⣿⣷⣦⢀⡴⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢸⠃⠀⠀⡟⠀⢸⡀⠀⠈⠻⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠞⠋⠁⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡆⣠⠞⢡⠀⠀⢸⠀
+⠀⠀⠀⠀⠀⠀⠀⡿⠀⠀⢰⡇⠀⠀⣇⠀⠀⠀⠈⠻⢷⣤⡀⠀⠀⠀⠀⠀⠀⣠⠶⠋⠀⠀⠀⠀⠀⠀⠀⣰⡧⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠖⢚⣿⠞⠁⠀⢸⡄⠀⢸⠀
+⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⢸⡇⠀⠈⣿⠀⠀⠀⠀⠀⠀⠙⠻⢷⣦⣀⣀⡴⠋⠁⠀⠀⠀⠀⠀⠀⠀⣠⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⠉⠀⠀⠀⣾⣇⠀⠈⡆
+⠀⠀⠀⠀⠀⠀⢸⠁⠀⠀⢸⡁⠀⠀⢸⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠛⠀⠀⠀⠀⢀⣀⠤⠔⠛⠁⣠⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡞⠀⠀⠀⠀⣰⠇⣿⠀⠀⡇
+⠀⠀⠀⠀⠀⠀⣾⠀⠀⠀⢸⡇⠀⠀⠀⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⢠⠴⢻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡾⠋⠀⠀⠀⠀⣠⠏⠀⢿⠀⠀⡇
+⠀⠀⠀⠀⠀⠀⢹⠀⠀⠀⠈⣇⠀⠀⠀⢮⡳⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡞⠀⠀⠀⢠⣤⣤⣤⣤⠶⠛⠉⠀⠀⠀⠀⠀⡴⠋⠀⠀⣼⠀⠀⢻
+⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⢹⡄⠀⠀⢸⡏⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣷⠀⠀⠾⠯⠶⢻⠂⠀⠀⠈⠉⠻⠦⣄⣀⠀⠀⠀⠀⡴⢋⣴⠆⠀⠀⣿⠀⠀⣼
+⠀⠀⠀⠀⠀⠀⠈⣇⠀⠀⠀⠀⠳⡄⠀⠀⢿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡀⢀⣀⠀⣀⡞⠀⠀⢀⣀⣀⣀⠀⠀⠉⠉⠛⣲⡾⠟⢹⠃⠀⠀⠀⣿⠀⠀⡟
+⠀⠀⠀⠀⠀⠀⠀⢻⡄⠀⠀⠀⠀⠹⡦⠤⠤⠿⠦⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧⠀⠈⠉⠁⠀⡤⠚⠋⠉⠀⠙⠻⣦⠀⣠⠞⠃⠀⠀⡿⠀⠀⠀⢸⠏⠀⢀⡇
+⠀⠀⠀⠀⠀⠀⠀⠀⢷⡀⠀⠀⠀⠀⢷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⡽⠚⠁⠀⠀⠀⢠⡇⢀⣠⣄⡼⠀⠀⡾⠁
+⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⣄⠀⠀⠀⠈⢳⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠲⠤⠤⠤⠖⠒⠚⣩⣽⡿⠀⠀⠀⢀⣠⡾⠓⢉⣟⡾⠃⢀⡼⠁⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣷⡶⠮⣷⣄⠀⠀⠀⠈⠙⠆⠀⠿⠶⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣶⠿⠋⠁⠀⠀⠀⠀⠈⠀⢀⣴⠟⢋⣠⣶⣋⣀⣀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠈⢳⡀⠀⠈⠳⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⢷⣦⡑⢄⠀⠀⠀⠀⠀⠀⠀⢰⠂⣠⣶⠟⠋⠀⠀⠀⠀⣀⣀⡀⠀⠀⠋⠉⠀⠉⠁⠀⠀⣠⡾⠋⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⣄⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⣀⣀⣀⣈⡻⣮⣧⠀⠀⠀⠀⠀⠀⣿⣾⣋⣀⣤⣴⣶⠿⠿⠟⠛⠛⠃⠀⠀⠷⢤⣄⣀⣀⣤⣞⣡⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠸⣷⠶⠭⠿⠶⠒⠒⠀⠀⠀⠉⠉⠉⠉⠉⠉⠉⠉⠉⣻⣿⣿⠦⠖⠒⠒⠒⠶⣿⣿⡛⠋⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣩⡿⠛⠁⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡾⣏⠀⠀⠀⠀⠀⠀⠀⠀⣼⡇⠉⠀⠀⠀⠀⠀⠀⣼⡇⠀⠀⠀⠀⢀⣤⡴⠛⠉⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠳⢦⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠿⠁⠈⠳⣄⣀⡀⢀⣀⣠⠾⠁⠀⠀⠀⠀⠀⠀⣀⣾⠏⠀⠀⢠⣶⢿⣯⣁⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠋⢉⣁⣀⣀⠀⠀⠀⠸⣆⠀⠀⠀⠀⠀⠀⠀⠈⠉⡏⠁⠀⠀⠀⠀⢀⣀⣠⣴⠾⡟⠁⠀⠒⢻⡟⠀⠀⠀⠙⠻⣦⡀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠁⠀⠀⠈⠻⣄⡀⠀⠀⠀⠀⠻⣄⠀⠀⠀⠀⠀⣀⣤⡶⢿⠛⠛⠛⠛⠛⠛⢻⠁⠙⠲⠇⠀⠀⠴⢯⡤⠻⢶⣤⣄⣀⣈⣷⡀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠸⢿⣥⡀⠀⠀⠀⠀⠸⡞⠛⠒⠂⠀⠀⠀⢯⣻⠶⣶⠶⠟⠋⠁⠀⠘⡆⠀⠀⠀⠀⠀⣼⠀⠀⠀⠀⠀⢀⡴⠊⠁⠀⠈⠙⢮⡉⠉⠛⠁⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠙⠛⠲⢶⡶⠟⠲⠤⡄⠀⠀⠀⠈⠁⠀⠈⣆⠀⠀⠀⠀⠀⠙⠀⠀⠀⠀⣠⠏⠀⠀⠀⠀⠈⠁⢀⣠⣤⠤⠶⠶⠦⢽⡇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⣄⣀⠀⠀⠀⠀⣀⣠⠞⠁⠀⠀⠀⠀⣀⣴⣞⣉⣀⣀⣀⣀⣴⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣥⡤⢤⣤⣤⢤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠛⠋⠉⠀⠀⠀⢀⣠⠴⠛⠁⠀⠀⠈⠀⠀⣠⠼⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣶⣛⠛⠋⠉⠉⠀⠀⠈⠉⠛⠓⠶⠦⢤⣤⣀⣀⣀⣀⠀⠀⣀⣠⣴⣶⣾⠋⠁⢀⣀⣀⣀⡀⢠⣴⣞⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣶⠦⠽⠗⢲⣤⣶⠶⠚⠛⠳⢶⣦⣄⡀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⣧⡶⠟⠛⠉⠉⠙⠛⢶⣅⠉⠙⠓⠶⣦⡄⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⡄⠀⢀⣿⠋⠀⠀⠀⠀⠀⠀⠀⠙⠿⣶⣄⠈⠙⠛⠻⠟⠛⢫⣵⠾⢋⠏⠀⠀⠀⠀⠀⠀⢠⡏⠙⣷⠀⢠⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣦⣸⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣷⡄⠀⠀⢀⣴⠟⠁⢀⡎⠀⠀⠀⠀⠀⠀⠀⡞⠀⠀⠸⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠸⣿⡛⠷⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⢹⡇⠀⠀⢀⣀⣀⠀⠀⣀⠀⠀⠀⠀⠈⢻⣧⣀⡾⠃⠀⠀⡞⠀⠀⠀⠀⠀⠀⠀⡸⠀⠀⠀⠀⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⣄⣀⠘⢷⡄⠀⠙⠳⣄⠀⠀⠀⠀⢀⡴⢻⡇⣠⠞⠋⠉⠉⠛⢯⡝⠀⠀⠀⠀⠀⠀⠙⡿⠁⠀⠀⣸⠁⠀⠀⠀⠀⠀⠀⣰⠃⠀⠀⠀⠀⣿⠸⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠉⠙⠓⢾⣷⡀⠀⠀⠘⢷⠀⢀⡴⠋⢀⣼⡷⠋⠀⠀⠀⠀⠀⠀⠹⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠇⠀⠀⠀⠀⠀⠀⣠⠃⠀⠀⠀⠀⢀⣿⠀⠹⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠈⠉⠀⠀⠀⢸⡾⠋⠀⠀⢸⡟⠁⠀⠀⠀⠀⠀⠀⠀⣀⣯⣤⣄⡀⠀⠀⠀⠀⠀⢀⡇⠀⠀⠀⠀⠀⠀⢰⠏⠀⠀⠀⠀⢀⣼⠋⠀⠀⢹⣧⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣴⠟⠀⢸⠓⢶⠋⢀⠀⠀⠀⠀⠀⣠⡴⠋⠁⠀⠀⠀⠹⣦⢤⡤⠀⠀⡾⠀⠀⠀⠀⢠⢄⣠⠇⠀⠀⠀⠀⢀⣾⠃⠀⠀⠀⠀⢻⡄⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢸⡏⠀⠀⢸⠀⢸⣟⣹⡟⠀⠀⠀⠈⢁⡀⠀⠀⠀⠀⠀⠀⣿⠋⠀⠀⡺⠁⠀⠀⠀⢀⣼⡟⠛⠉⠉⠛⠛⠦⣞⡁⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀
+
+                            12.12.2025 19:13
 */
 
-// took me 2 hours, 19 minutes, and 52 seconds to code this
+#include<iostream>
+using namespace std;
 
-int main() {
-    int userDeckSize = 0;
-    int lowestValueAllowed;
-    int howManyPlayers = 0;
-    int enteredCount = 0; 
-    int stillLeft = 0;
-
-    bool cardMatrix[13][4];        
-    for (int i = 0; i < 13; i++) { 
-        for (int j = 0; j < 4; j++) {
-            cardMatrix[i][j] = false;
-        }
-    }
-
-    const char* valNames[] = {"2","3","4","5","6","7","8","9","10","V","D","K","T"};
-    const char* suitNames[] = {"piki","trefi","chervi","bubni"};
-
-    cout << "deck size? (24, 36, 52): ";
-    cin >> userDeckSize;
-
-    if (userDeckSize == 24) {
-        lowestValueAllowed = 9;
-    } else if (userDeckSize == 36) {
-        lowestValueAllowed = 6;
-    } else if (userDeckSize == 52) {
-        lowestValueAllowed = 2;
-    } else {
-        cout << "invalid deck size\n";
-        cout << "bye!\n";
-        return 1;
-    }
-
-    for (int v = lowestValueAllowed; v <= 14; v++) {
-        for (int s = 0; s < 4; s++) {
-            cardMatrix[v - 2][s] = true;
-        }
-    }
-
-    cout << "number of players: ";
-    cin >> howManyPlayers;
-
-    if (howManyPlayers < 0) {
-        cout << "invalid\n";
-        return 1;
-    }
-
-    cout << "\nenter cards:\n";
-
-    while (true) {
-        int tempVal = 0;
-        cout << "value (2..14; 11 valet, 12 dama, 13 karol, 14 tuz, 0 end): ";
-        cin >> tempVal;
-
-        if (tempVal == 0) {
-            if (enteredCount == 0) {
-                cout << "no cards entered, continue? (y/n): ";
-                char cont;
-                cin >> cont;
-                if (tolower(cont) == 'n') {
-                    return 0;
+void debugPrint(int *cardArr[], int cardValueAmount, int cardSuitAmount, int displayIncrement) {
+    const char* suitNames[] = {"Spades", "Clubs", "Hearts", "Diamonds"};
+    for (int i = 0; i < cardValueAmount; i++) {
+        int rank = i + displayIncrement + 1;
+        for (int j = 0; j < cardSuitAmount; j++) {
+            if (cardArr[i][j] == 0) {
+                cout << "[+] ";
+                switch (rank) {
+                    case 14:
+                        cout << "Ace ";
+                        break;
+                    case 13:
+                        cout << "King ";
+                        break;
+                    case 12:
+                        cout << "Queen ";
+                        break;
+                    case 11:
+                        cout << "Jack ";
+                        break;
+                    default:
+                        cout << rank << " ";
+                        break;
                 }
+                cout << suitNames[j] << " still there.\n";
             }
-            break;
         }
-
-        if (tempVal < lowestValueAllowed || tempVal > 14) {
-            cout << "invalid value\n";
-            continue;
-        }
-
-        int tempSuit = 0;
-        cout << "suit (1 piki, 2 trefi, 3 chervi, 4 bubni): ";
-        cin >> tempSuit;
-
-        if (tempSuit < 1 || tempSuit > 4) {
-            cout << "invalid suit, must be 1-4\n";
-            continue;
-        }
-
-        if (!cardMatrix[tempVal - 2][tempSuit - 1]) {
-            cout << "already out\n";
-            continue;
-        }
-
-        cardMatrix[tempVal - 2][tempSuit - 1] = false;
-        enteredCount++;
+        cout << endl;
+    }
 }
 
-    for (int v = lowestValueAllowed - 2; v < 13; v++) {
-        for (int s = 0; s < 4; s++) {
-            if (cardMatrix[v][s]) {
-                stillLeft++;
-            }
-        }
+void deleteLeftOvers(int *cardArr[], int cardValueAmount, int cardSuitAmount) {
+    for (int i = 0; i < cardValueAmount; i++) {
+        delete[] cardArr[i];
     }
+    delete[] cardArr;
+}
 
-    cout << "remaining cards: " << stillLeft << "\n";
-    
-    for (int s = 0; s < 4; s++) {
-        bool somethingInThisSuit = false;
-        for (int v = lowestValueAllowed - 2; v < 13; v++) {
-            if (cardMatrix[v][s]) {
-                somethingInThisSuit = true;
+int main() {
+    int deckSize, cardValueAmount, displayIncrement;
+    int cardSuitAmount = 4;
+    cout << "[?] Enter your desired deck size, it can be 24, 36, or 52: ";
+    cin >> deckSize;
+    switch (deckSize) {
+        case 24:
+            cardValueAmount = 6;
+            displayIncrement = 8;
+            break;
+        case 36:
+            cardValueAmount = 9;
+            displayIncrement = 5;
+            break;
+        case 52:
+            cardValueAmount = 13;
+            displayIncrement = 1;
+            break;
+        default:
+            cout << "[-] Invalid." << endl;
+            cin.ignore();
+            cin.get();
+            return 1;
+    }
+    int **cardArr = new int*[cardValueAmount]{};
+    for (int i = 0; i < cardValueAmount; i++) {
+        cardArr[i] = new int[cardSuitAmount]{};
+    }
+    for (int i = 0; i < i + 1; i++) {
+        int tempValue, tempSuit;
+        cout << "[?] Enter the card value (2-13, 0 to finish): ";
+        cin >> tempValue;
+        if (tempValue == 0) {
+            cout << endl;
+            break;
+        }
+        cout << endl;
+        cout << "[?] Enter the card suit (1-4): ";
+        cin >> tempSuit;
+        cout << endl;
+        switch (cardValueAmount) {
+            case 6:
+                cardArr[tempValue - 9][tempSuit - 1] = 1;
                 break;
-            }
-        }
-        if (somethingInThisSuit) {
-            cout << suitNames[s] << ":\n";
-            for (int v = lowestValueAllowed - 2; v < 13; v++) {
-                if (cardMatrix[v][s]) {
-                    cout << "  " << valNames[v] << "\n";
-                }
-            }
-        cout << "\n";
+            case 9:
+                cardArr[tempValue - 6][tempSuit - 1] = 1;
+                break;
+            case 13:
+                cardArr[tempValue - 2][tempSuit - 1] = 1;
+                break;
         }
     }
-
-    cout << "\ncards that are still in deck:\n";
-    for (int v = lowestValueAllowed - 2; v < 13; v++) {
-        for (int s = 0; s < 4; s++) {
-            if (cardMatrix[v][s]) {
-                cout << valNames[v] << " " << suitNames[s] << "\n";
-            }
-        }
-    }
-
-    cin.ignore();
-    cin.get();
+    debugPrint(cardArr, cardValueAmount, cardSuitAmount, displayIncrement);
+    deleteLeftOvers(cardArr, cardValueAmount, cardSuitAmount);
     return 0;
-
 }
