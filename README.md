@@ -8,6 +8,5 @@ g++ main.cpp -o main
 *To do:*
 ```
 1. Player system
-2. Algorithm that checks for the same card in the array
-3. OpenGL...
+2. OpenGL...
 ```
