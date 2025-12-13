@@ -33,7 +33,7 @@
 ⠀⠀⠀⠀⠀⠀⠀⠀⣴⠟⠀⢸⠓⢶⠋⢀⠀⠀⠀⠀⠀⣠⡴⠋⠁⠀⠀⠀⠹⣦⢤⡤⠀⠀⡾⠀⠀⠀⠀⢠⢄⣠⠇⠀⠀⠀⠀⢀⣾⠃⠀⠀⠀⠀⢻⡄⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⢸⡏⠀⠀⢸⠀⢸⣟⣹⡟⠀⠀⠀⠈⢁⡀⠀⠀⠀⠀⠀⠀⣿⠋⠀⠀⡺⠁⠀⠀⠀⢀⣼⡟⠛⠉⠉⠛⠛⠦⣞⡁⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀
 
-                            12.12.2025 19:13
+                            13.12.2025 17:33
 */
 
 #include<iostream>
@@ -128,9 +128,10 @@ int main() {
                     cardArr[tempValue - 9][tempSuit - 1] = 0;
                     continue;
                 }
+                cardArr[tempValue - 9][tempSuit - 1] = 1;
                 break;
             case 9:
-                if (tempValue < 9 || tempValue > 14 || tempSuit < 1 || tempSuit > 4) {
+                if (tempValue < 6 || tempValue > 14 || tempSuit < 1 || tempSuit > 4) {
                     cout << "[-] Invalid card." << "\n\n";
                     continue;
                 }
@@ -139,9 +140,10 @@ int main() {
                     cardArr[tempValue - 6][tempSuit - 1] = 0;
                     continue;
                 }
+                cardArr[tempValue - 6][tempSuit - 1] = 1;
                 break;
             case 13:
-                if (tempValue < 9 || tempValue > 14 || tempSuit < 1 || tempSuit > 4) {
+                if (tempValue < 2 || tempValue > 14 || tempSuit < 1 || tempSuit > 4) {
                     cout << "[-] Invalid card." << "\n\n";
                     continue;
                 }
@@ -150,16 +152,6 @@ int main() {
                     cardArr[tempValue - 2][tempSuit - 1] = 0;
                     continue;
                 }
-                break;
-        }
-        switch (cardValueAmount) {
-            case 6:
-                cardArr[tempValue - 9][tempSuit - 1] = 1;
-                break;
-            case 9:
-                cardArr[tempValue - 6][tempSuit - 1] = 1;
-                break;
-            case 13:
                 cardArr[tempValue - 2][tempSuit - 1] = 1;
                 break;
         }
